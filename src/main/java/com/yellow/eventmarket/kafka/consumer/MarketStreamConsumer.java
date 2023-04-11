@@ -4,6 +4,8 @@ import org.apache.kafka.streams.kstream.KStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.config.StreamsBuilderFactoryBean;
 import org.springframework.stereotype.Component;
 
 import com.yellow.eventmarket.dto.MarketDTO;
@@ -21,14 +23,9 @@ public class MarketStreamConsumer {
 	@Value("${kafka.group.market}")
 	private String marketGroup;
 
-	@StreamListener(value = "${kafka.topic.market}")
-	public void processOfferMessage(KStream<String, MarketDTO> offerStream) {
-		System.out.println("konzumiram kafku");
-		// Consume messages from the "create-offer-topic" topic
-		offerStream.foreach((key, value) -> {
-			// Process the message
-			marketService.createMarket(value);
-		});
+	@KafkaListener(topics = "${kafka.topic.market}", groupId = "${kafka.group.market}", containerFactory = "marketKafkaListenerContainerFactory")
+	public void listenGroupLongMessage(MarketDTO marketDTO) {
+		System.out.println("Received Message in group 'longMessage'");
 	}
 
 }
