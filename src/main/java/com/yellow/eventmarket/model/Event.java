@@ -1,6 +1,7 @@
 package com.yellow.eventmarket.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,6 +27,7 @@ public class Event {
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)
 //	private long rowId;
 
+	@Id
 	@Column(nullable = false, unique = true)
 	private String id;
 
@@ -38,4 +41,7 @@ public class Event {
 	@JoinColumn(name = "event_status_id")
 	private EventStatus status;
 
+	@OneToMany
+	@JoinColumn(name = "event_market_id")
+	private List<EventMarket> markets;
 }

@@ -33,10 +33,6 @@ public class EventMarketOutcome {
 	private MarketOutcome marketOutcome;
 
 	@ManyToOne
-	@JoinColumn(name = "event_market_id")
-	private EventMarket eventMarket;
-
-	@ManyToOne
 	@JoinColumn(name = "event_market_outcome_status_id")
 	private EventMarketOutcomeStatus status;
 
