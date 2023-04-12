@@ -21,13 +21,11 @@ public class MarketController {
 
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	@PostMapping
 	public ResponseEntity<?> createMarket(@RequestBody MarketDTO marketDTO) {
 		Market market = modelMapper.map(marketDTO, Market.class);
-		System.out.println(market.getId());
-		System.out.println(market.getName());
-//		marketStreamProducer.sendMarketToStream(market);
+		marketStreamProducer.sendMarketToStream(market);
 		return ResponseEntity.ok().build();
 	}
 
