@@ -18,10 +18,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MarketOutcome {
 
-	@Id
-	@Column(name = "row_id", unique = true, updatable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long rowId;
+//	@Id
+//	@Column(name = "row_id", unique = true, updatable = false)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private long rowId;
 
 	@Column(nullable = false, unique = true)
 	private String id;

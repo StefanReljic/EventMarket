@@ -20,10 +20,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Event {
 
-	@Id
-	@Column(unique = true, updatable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long rowId;
+//	@Id
+//	@Column(unique = true, updatable = false)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private long rowId;
 
 	@Column(nullable = false, unique = true)
 	private String id;

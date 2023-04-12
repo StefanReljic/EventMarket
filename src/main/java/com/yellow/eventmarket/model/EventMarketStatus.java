@@ -16,10 +16,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EventMarketStatus {
 
-	@Id
-	@Column(unique = true, updatable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+//	@Id
+//	@Column(unique = true, updatable = false)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private int id;
 
 	@Column(nullable = false, unique = true)
 	private String code;
