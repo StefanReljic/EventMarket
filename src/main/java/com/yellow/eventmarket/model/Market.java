@@ -2,17 +2,16 @@ package com.yellow.eventmarket.model;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
-
 import com.yellow.eventmarket.enums.MarketStatus;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -34,7 +33,7 @@ public class Market {
 	private MarketStatus status;
 
 	@OneToMany
-	@JoinColumn(name = "market_outcome_id")
-	private List<MarketOutcome> marketOutcomes;
+	@JoinColumn(name = "market_id")
+	private List<MarketOutcome> outcomes;
 
 }

@@ -15,7 +15,7 @@ public class MarketStreamConsumer {
 
 	@KafkaListener(topics = "${kafka.topic.market}", groupId = "${kafka.group.market}", containerFactory = "marketKafkaListenerContainerFactory")
 	public void listenMarketMessage(Market market) {
-		marketService.createOrUpdateMarket(market);
+		marketService.handleMarketUpdate(market);
 	}
 
 }

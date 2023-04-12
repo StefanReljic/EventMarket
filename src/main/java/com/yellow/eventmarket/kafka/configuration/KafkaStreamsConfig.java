@@ -19,7 +19,9 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
+import com.yellow.eventmarket.kafka.consumer.deserializer.EventDTODeserializer;
 import com.yellow.eventmarket.kafka.consumer.deserializer.MarketDTODeserializer;
+import com.yellow.eventmarket.model.Event;
 import com.yellow.eventmarket.model.Market;
 
 @Configuration
@@ -52,10 +54,10 @@ public class KafkaStreamsConfig {
 				MarketDTODeserializer.class);
 	}
 
-//	@Bean
-//	public ConcurrentKafkaListenerContainerFactory<String, String> eventKafkaListenerContainerFactory() {
-//		return new CustomKafkaListenerContainerFactory<MarketDTO>("eventFactory", MarketDTODeserializer.class);
-//	}
+	@Bean
+	public ConcurrentKafkaListenerContainerFactory<String, Event> eventKafkaListenerContainerFactory() {
+		return new CustomKafkaListenerContainerFactory<>(bootstrapServers, "eventFactory", EventDTODeserializer.class);
+	}
 
 	@Bean
 	public KafkaTemplate<String, Market> marketKafkaTemplate() {
