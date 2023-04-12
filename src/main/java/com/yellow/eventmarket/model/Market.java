@@ -9,14 +9,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.yellow.eventmarket.dto.MarketDTO;
-
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "market")
-@Getter
+@Data
 @NoArgsConstructor
 public class Market {
 

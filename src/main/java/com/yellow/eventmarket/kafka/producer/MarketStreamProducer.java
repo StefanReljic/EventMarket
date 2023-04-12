@@ -5,19 +5,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import com.yellow.eventmarket.dto.MarketDTO;
+import com.yellow.eventmarket.model.Market;
 
 @Service
 public class MarketStreamProducer {
 
 	@Autowired
-	private KafkaTemplate<String, MarketDTO> kafkaTemplate;
+	private KafkaTemplate<String, Market> kafkaTemplate;
 
 	@Value("${kafka.topic.market}")
 	private String marketTopic;
 
-	public void sendMarketToStream(MarketDTO marketDTO) {
-		kafkaTemplate.send(marketTopic, marketDTO.getId(), marketDTO);
+	public void sendMarketToStream(Market market) {
+		kafkaTemplate.send(marketTopic, market.getId(), market);
 	}
 
 }

@@ -16,6 +16,6 @@ services:
       - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
-      - KAFKA_CREATE_TOPICS=offer-topic:1:1
+      - KAFKA_CREATE_TOPICS=market-topic:1:1, event-topic:1:1
     depends_on:
       - zookeeper

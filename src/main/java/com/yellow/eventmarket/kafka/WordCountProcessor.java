@@ -21,7 +21,7 @@ public class WordCountProcessor {
 
 	@Autowired
 	void buildPipeline(StreamsBuilder streamsBuilder) {
-		KStream<String, String> messageStream = streamsBuilder.stream("input-topic",
+		KStream<String, String> messageStream = streamsBuilder.stream("market-topic",
 				Consumed.with(STRING_SERDE, STRING_SERDE));
 
 //		KTable<String, Long> wordCounts = messageStream.mapValues((ValueMapper<String, String>) String::toLowerCase)

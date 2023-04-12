@@ -11,11 +11,12 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 public class CustomKafkaListenerContainerFactory<T> extends ConcurrentKafkaListenerContainerFactory<String, T> {
 
-	public CustomKafkaListenerContainerFactory(String groupId, Class<? extends JsonDeserializer<T>> valueDeserializer) {
+	public CustomKafkaListenerContainerFactory(String bootstrapServer, String groupId,
+			Class<? extends JsonDeserializer<T>> valueDeserializer) {
 		super();
 
 		Map<String, Object> props = new HashMap<>();
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "");
+		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
 		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, valueDeserializer);

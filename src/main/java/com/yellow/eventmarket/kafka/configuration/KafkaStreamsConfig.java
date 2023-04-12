@@ -17,11 +17,10 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaStreamsConfiguration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
-import com.yellow.eventmarket.dto.MarketDTO;
-import com.yellow.eventmarket.kafka.consumer.MarketDTODeserializer;
+import com.yellow.eventmarket.kafka.consumer.deserializer.MarketDTODeserializer;
+import com.yellow.eventmarket.model.Market;
 
 @Configuration
 @EnableKafka
@@ -48,8 +47,9 @@ public class KafkaStreamsConfig {
 	}
 
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, MarketDTO> marketKafkaListenerContainerFactory() {
-		return new CustomKafkaListenerContainerFactory<MarketDTO>("marketFactory", MarketDTODeserializer.class);
+	public ConcurrentKafkaListenerContainerFactory<String, Market> marketKafkaListenerContainerFactory() {
+		return new CustomKafkaListenerContainerFactory<>(bootstrapServers, "marketFactory",
+				MarketDTODeserializer.class);
 	}
 
 //	@Bean
@@ -58,6 +58,10 @@ public class KafkaStreamsConfig {
 //	}
 
 	@Bean
+	public KafkaTemplate<String, Market> marketKafkaTemplate() {
+		return new KafkaTemplate<>(new DefaultKafkaProducerFactory<>(producerConfigs()));
+	}
+
 	public Map<String, Object> producerConfigs() {
 		Map<String, Object> props = new HashMap<>();
 		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -68,13 +72,4 @@ public class KafkaStreamsConfig {
 		return props;
 	}
 
-	@Bean
-	public ProducerFactory<String, MarketDTO> marketProducerFactory() {
-		return new DefaultKafkaProducerFactory<>(producerConfigs());
-	}
-
-	@Bean
-	public KafkaTemplate<String, MarketDTO> marketKafkaTemplate() {
-		return new KafkaTemplate<>(marketProducerFactory());
-	}
 }
