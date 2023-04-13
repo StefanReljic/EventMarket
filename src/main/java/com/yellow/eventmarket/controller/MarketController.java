@@ -1,6 +1,7 @@
 package com.yellow.eventmarket.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -8,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.yellow.eventmarket.brokers.MessageProducer;
 import com.yellow.eventmarket.dto.MarketDTO;
-import com.yellow.eventmarket.kafka.producer.MarketStreamProducer;
 
 import jakarta.validation.Valid;
 
@@ -17,18 +18,19 @@ import jakarta.validation.Valid;
 @RequestMapping("/markets")
 public class MarketController {
 
+	@Qualifier("marketProducer")
 	@Autowired
-	private MarketStreamProducer marketStreamProducer;
+	private MessageProducer<MarketDTO> eventProducer;
 
 	@PostMapping
 	public ResponseEntity<?> createMarket(@RequestBody @Valid MarketDTO marketDTO) {
-		marketStreamProducer.sendMarketToStream(marketDTO);
+		eventProducer.sendMessage(marketDTO);
 		return ResponseEntity.ok().build();
 	}
 
 	@PutMapping
 	public ResponseEntity<?> updateMarket(@RequestBody @Valid MarketDTO marketDTO) {
-		marketStreamProducer.sendMarketToStream(marketDTO);
+		eventProducer.sendMessage(marketDTO);
 		return ResponseEntity.ok().build();
 	}
 

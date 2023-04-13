@@ -1,4 +1,4 @@
-package com.yellow.eventmarket.kafka.configuration;
+package com.yellow.eventmarket.brokers.kafka.configuration;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +11,7 @@ import org.apache.kafka.streams.StreamsConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.EnableKafkaStreams;
 import org.springframework.kafka.annotation.KafkaStreamsDefaultConfiguration;
@@ -20,15 +21,19 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
+import com.yellow.eventmarket.brokers.MessageProducer;
+import com.yellow.eventmarket.brokers.kafka.consumer.deserializer.EventDTODeserializer;
+import com.yellow.eventmarket.brokers.kafka.consumer.deserializer.MarketDTODeserializer;
+import com.yellow.eventmarket.brokers.kafka.producer.EventStreamProducer;
+import com.yellow.eventmarket.brokers.kafka.producer.MarketStreamProducer;
 import com.yellow.eventmarket.dto.EventDTO;
 import com.yellow.eventmarket.dto.MarketDTO;
-import com.yellow.eventmarket.kafka.consumer.deserializer.EventDTODeserializer;
-import com.yellow.eventmarket.kafka.consumer.deserializer.MarketDTODeserializer;
 
+@Profile("kafka")
 @Configuration
 @EnableKafka
 @EnableKafkaStreams
-public class KafkaStreamsConfig {
+public class KafkaConfiguration {
 
 	private static final short EVENT_TOPIC_REPLICAS = (short) 1;
 	private static final int EVENT_TOPIC_PARTITIONS = 2;
@@ -47,6 +52,16 @@ public class KafkaStreamsConfig {
 		props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 		props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 		return new KafkaStreamsConfiguration(props);
+	}
+
+	@Bean(name = "eventProducer")
+	public MessageProducer<EventDTO> eventMessageProducer() {
+		return new EventStreamProducer();
+	}
+
+	@Bean(name = "marketProducer")
+	public MessageProducer<MarketDTO> marketMessageProducer() {
+		return new MarketStreamProducer();
 	}
 
 	@Bean

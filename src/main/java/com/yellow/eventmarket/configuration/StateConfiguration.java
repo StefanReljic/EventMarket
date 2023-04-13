@@ -10,7 +10,7 @@ import com.yellow.eventmarket.configuration.state.FileLoader;
 import com.yellow.eventmarket.configuration.state.InitialStateLoader;
 
 @Configuration
-public class ApplicationConfig {
+public class StateConfiguration {
 
 	@Bean
 	public ModelMapper modelMapper() {
