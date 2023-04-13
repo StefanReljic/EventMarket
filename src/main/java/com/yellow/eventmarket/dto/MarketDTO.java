@@ -3,8 +3,6 @@ package com.yellow.eventmarket.dto;
 import java.io.Serializable;
 import java.util.List;
 
-import com.yellow.eventmarket.enums.MarketStatus;
-
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,7 +20,7 @@ public class MarketDTO implements Serializable {
 	@NotBlank(message = "Name cannot be empty")
 	private String name;
 	@NotNull(message = "Status cannot be null")
-	private MarketStatus status;
+	private Integer status;
 	@Valid
 	private List<MarketOutcomeDTO> outcomes;
 

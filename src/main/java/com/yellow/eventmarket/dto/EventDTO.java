@@ -3,8 +3,6 @@ package com.yellow.eventmarket.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.yellow.eventmarket.enums.EventStatus;
-
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -20,7 +18,7 @@ public class EventDTO {
 	@NotNull(message = "Starts at must exist")
 	private LocalDateTime startsAt;
 	@NotNull(message = "Status must exist")
-	private EventStatus status;
+	private Integer status;
 	@Valid
 	private List<EventMarketDTO> markets;
 

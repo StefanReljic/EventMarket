@@ -10,6 +10,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -33,12 +34,12 @@ public class Event {
 	private LocalDateTime startsAt;
 
 	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private EventStatus status;
 
 	@JsonIgnore
-	@OneToMany
-	@JoinColumn(name = "event_market_id")
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "event_id")
 	private List<EventMarket> markets;
 
 	public boolean isActive() {

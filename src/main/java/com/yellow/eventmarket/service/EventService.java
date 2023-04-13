@@ -12,6 +12,9 @@ import com.yellow.eventmarket.configuration.state.StateHolder;
 import com.yellow.eventmarket.dto.EventDTO;
 import com.yellow.eventmarket.dto.EventMarketDTO;
 import com.yellow.eventmarket.dto.EventMarketOutcomeDTO;
+import com.yellow.eventmarket.enums.EventMarketOutcomeStatus;
+import com.yellow.eventmarket.enums.EventMarketStatus;
+import com.yellow.eventmarket.enums.EventStatus;
 import com.yellow.eventmarket.model.Event;
 import com.yellow.eventmarket.model.EventMarket;
 import com.yellow.eventmarket.model.EventMarketOutcome;
@@ -44,13 +47,16 @@ public class EventService {
 			event.setStartsAt(eventDTO.getStartsAt());
 		}
 		if (eventDTO.getStatus() != null) {
-			event.setStatus(eventDTO.getStatus());
+			event.setStatus(EventStatus.fromCode(eventDTO.getStatus()));
 		}
 	}
 
 	private Event createEvent(EventDTO eventDTO) {
 		List<EventMarket> eventMarkets = createEventMarkets(eventDTO);
 		Event event = modelMapper.map(eventDTO, Event.class);
+		event.setName(eventDTO.getName());
+		event.setStartsAt(event.getStartsAt());
+		event.setStatus(EventStatus.fromCode(eventDTO.getStatus()));
 		event.setMarkets(eventMarkets);
 		return event;
 	}
@@ -63,6 +69,7 @@ public class EventService {
 		Market market = findMarketById(eventMarketDTO.getMarketId());
 		List<EventMarketOutcome> outcomes = createEventMarketOutcomes(market, eventMarketDTO.getOutcomes());
 		EventMarket eventMarket = modelMapper.map(eventMarketDTO, EventMarket.class);
+		eventMarket.setStatus(EventMarketStatus.fromCode(eventMarketDTO.getStatus()));
 		eventMarket.setMarket(market);
 		eventMarket.setOutcomes(outcomes);
 		return eventMarket;
@@ -83,6 +90,7 @@ public class EventService {
 				.orElseThrow(() -> new RuntimeException("No MarketOutcome with id "
 						+ eventMarketOutcomeDTO.getOutcomeId() + " for Market with id " + market.getId()));
 		EventMarketOutcome eventMarketOutcome = modelMapper.map(eventMarketOutcomeDTO, EventMarketOutcome.class);
+		eventMarketOutcome.setStatus(EventMarketOutcomeStatus.fromCode(eventMarketOutcomeDTO.getStatus()));
 		eventMarketOutcome.setOutcome(marketOutcome);
 		eventMarketOutcome.setOdd(eventMarketOutcomeDTO.getOdds());
 		return eventMarketOutcome;

@@ -25,7 +25,7 @@ public class EventMarketOutcome {
 	private String id;
 
 	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private EventMarketOutcomeStatus status;
 
 	private double odd;

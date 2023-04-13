@@ -8,12 +8,12 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "MARKET_OUTCOME")
-@Getter
+@Data
 @NoArgsConstructor
 public class MarketOutcome {
 
@@ -24,7 +24,7 @@ public class MarketOutcome {
 	private String name;
 
 	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private MarketOutcomeStatus status;
 
 }

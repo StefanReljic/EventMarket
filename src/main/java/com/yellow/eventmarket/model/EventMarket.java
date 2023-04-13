@@ -10,6 +10,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -33,7 +34,7 @@ public class EventMarket {
 	private String id;
 
 	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private EventMarketStatus status;
 
 	@JsonIgnore
@@ -42,7 +43,7 @@ public class EventMarket {
 	private Market market;
 
 	@JsonIgnore
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "event_market_id")
 	private List<EventMarketOutcome> outcomes;
 

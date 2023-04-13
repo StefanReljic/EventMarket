@@ -2,15 +2,24 @@ package com.yellow.eventmarket.enums;
 
 public enum EventStatus {
 
-	INACTIVE("0"), ACTIVE("1");
+	INACTIVE(0), ACTIVE(1);
 
-	private String code;
+	private Integer code;
 
-	private EventStatus(String code) {
+	private EventStatus(Integer code) {
 		this.code = code;
 	}
 
-	public String getCode() {
+	public Integer getCode() {
 		return code;
+	}
+
+	public static EventStatus fromCode(Integer code) {
+		for (EventStatus status : values()) {
+			if (status.code == code) {
+				return status;
+			}
+		}
+		return null;
 	}
 }
