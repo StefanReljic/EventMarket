@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ApplicationStateDTO {
 
-	public List<MarketDTO> markets;
-	public List<EventDTO> events;
+	private List<MarketDTO> markets;
+	private List<EventDTO> events;
 
 }

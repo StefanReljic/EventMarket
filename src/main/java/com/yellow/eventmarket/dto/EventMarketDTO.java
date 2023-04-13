@@ -4,19 +4,21 @@ import java.util.List;
 
 import com.yellow.eventmarket.enums.EventMarketStatus;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class EventMarketDTO {
 
+	@NotEmpty(message = "Id cannot be empty")
 	private String id;
-
-	@Enumerated(EnumType.STRING)
+	@NotNull(message = "Status must exist")
 	private EventMarketStatus status;
-
+	@NotEmpty(message = "Market id cannot be emptu")
 	private String marketId;
+	@Valid
 	private List<EventMarketOutcomeDTO> outcomes;
 
 }

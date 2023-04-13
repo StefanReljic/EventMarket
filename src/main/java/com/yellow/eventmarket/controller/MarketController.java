@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.yellow.eventmarket.dto.MarketDTO;
 import com.yellow.eventmarket.kafka.producer.MarketStreamProducer;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/markets")
 public class MarketController {
@@ -19,13 +21,13 @@ public class MarketController {
 	private MarketStreamProducer marketStreamProducer;
 
 	@PostMapping
-	public ResponseEntity<?> createMarket(@RequestBody MarketDTO marketDTO) {
+	public ResponseEntity<?> createMarket(@RequestBody @Valid MarketDTO marketDTO) {
 		marketStreamProducer.sendMarketToStream(marketDTO);
 		return ResponseEntity.ok().build();
 	}
 
 	@PutMapping
-	public ResponseEntity<?> updateMarket(@RequestBody MarketDTO marketDTO) {
+	public ResponseEntity<?> updateMarket(@RequestBody @Valid MarketDTO marketDTO) {
 		marketStreamProducer.sendMarketToStream(marketDTO);
 		return ResponseEntity.ok().build();
 	}

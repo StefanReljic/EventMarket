@@ -3,6 +3,7 @@ package com.yellow.eventmarket.kafka.configuration;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -23,24 +24,34 @@ import com.yellow.eventmarket.dto.EventDTO;
 import com.yellow.eventmarket.dto.MarketDTO;
 import com.yellow.eventmarket.kafka.consumer.deserializer.EventDTODeserializer;
 import com.yellow.eventmarket.kafka.consumer.deserializer.MarketDTODeserializer;
-import com.yellow.eventmarket.model.Market;
 
 @Configuration
 @EnableKafka
 @EnableKafkaStreams
 public class KafkaStreamsConfig {
 
+	private static final short EVENT_TOPIC_REPLICAS = (short) 1;
+	private static final int EVENT_TOPIC_PARTITIONS = 2;
+
 	@Value("${spring.kafka.bootstrap-servers}")
 	private String bootstrapServers;
+
+	@Value("${kafka.topic.event}")
+	private String eventTopic;
 
 	@Bean(name = KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME)
 	public KafkaStreamsConfiguration kafkaStreamsConfiguration() {
 		Map<String, Object> props = new HashMap<>();
-		props.put(StreamsConfig.APPLICATION_ID_CONFIG, "my-stream-processing-app");
+		props.put(StreamsConfig.APPLICATION_ID_CONFIG, "event-market-app");
 		props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
 		props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 		props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 		return new KafkaStreamsConfiguration(props);
+	}
+
+	@Bean
+	public NewTopic myTopic() {
+		return new NewTopic(eventTopic, EVENT_TOPIC_PARTITIONS, EVENT_TOPIC_REPLICAS);
 	}
 
 	@Bean
