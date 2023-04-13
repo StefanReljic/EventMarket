@@ -15,14 +15,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "event_market_outcome")
+@Table(name = "EVENT_MARKET_OUTCOME")
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EventMarketOutcome {
 
 	@Id
-	@Column(nullable = false, unique = true)
 	private String id;
 
 	@Column(nullable = false)

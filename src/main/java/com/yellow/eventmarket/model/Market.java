@@ -16,13 +16,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "market")
+@Table(name = "MARKET")
 @NoArgsConstructor
 @Data
 public class Market {
 
 	@Id
-	@Column(nullable = false, unique = true)
 	private String id;
 
 	@Column(nullable = false)

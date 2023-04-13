@@ -12,13 +12,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "market_outcome")
+@Table(name = "MARKET_OUTCOME")
 @Getter
 @NoArgsConstructor
 public class MarketOutcome {
 
 	@Id
-	@Column(nullable = false, unique = true)
 	private String id;
 
 	@Column(nullable = false)

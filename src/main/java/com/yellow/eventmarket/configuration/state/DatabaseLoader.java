@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 
 import com.yellow.eventmarket.model.ApplicationState;
 import com.yellow.eventmarket.model.Event;
@@ -12,6 +13,7 @@ import com.yellow.eventmarket.model.Market;
 import com.yellow.eventmarket.repository.EventRepository;
 import com.yellow.eventmarket.repository.MarketRepository;
 
+@Profile("database")
 public class DatabaseLoader implements InitialStateLoader {
 
 	@Autowired

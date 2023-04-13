@@ -21,7 +21,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "event_market")
+@Table(name = "EVENT_MARKET")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,7 +30,6 @@ import lombok.NoArgsConstructor;
 public class EventMarket {
 
 	@Id
-	@Column(nullable = false, unique = true)
 	private String id;
 
 	@Column(nullable = false)

@@ -19,3 +19,18 @@ services:
       - KAFKA_CREATE_TOPICS=market-topic:1:1, event-topic:1:1
     depends_on:
       - zookeeper
+      
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: stefan
+      MYSQL_DATABASE: EventMarket
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      
+volumes:
+  mysql-data:
