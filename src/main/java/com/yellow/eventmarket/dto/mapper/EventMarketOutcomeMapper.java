@@ -12,6 +12,7 @@ public class EventMarketOutcomeMapper {
 		EventMarketOutcomeDTO eventMarketOutcomeDTO = new EventMarketOutcomeDTO();
 		eventMarketOutcomeDTO.setId(eventMarketOutcome.getId());
 		eventMarketOutcomeDTO.setStatus(eventMarketOutcome.getStatus().getCode());
+		eventMarketOutcomeDTO.setOutcomeId(eventMarketOutcome.getOutcome().getId());
 		eventMarketOutcomeDTO.setOdds(eventMarketOutcome.getOdd());
 		return eventMarketOutcomeDTO;
 	}

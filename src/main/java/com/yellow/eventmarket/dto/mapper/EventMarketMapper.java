@@ -21,6 +21,7 @@ public class EventMarketMapper {
 		EventMarketDTO eventMarketDTO = new EventMarketDTO();
 		eventMarketDTO.setId(eventMarket.getId());
 		eventMarketDTO.setStatus(eventMarket.getStatus().getCode());
+		eventMarketDTO.setMarketId(eventMarket.getMarket().getId());
 		eventMarketDTO.setOutcomes(eventMarketOutcomes);
 		return eventMarketDTO;
 	}
