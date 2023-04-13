@@ -3,6 +3,7 @@ package com.yellow.eventmarket.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yellow.eventmarket.enums.EventStatus;
 
 import jakarta.persistence.Column;
@@ -13,13 +14,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "event")
-@Getter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Event {
 
 	@Id
@@ -36,7 +41,13 @@ public class Event {
 	@Enumerated(EnumType.STRING)
 	private EventStatus status;
 
+	@JsonIgnore
 	@OneToMany
 	@JoinColumn(name = "event_market_id")
 	private List<EventMarket> markets;
+
+	public boolean isActive() {
+		return EventStatus.ACTIVE.equals(status);
+	}
+
 }

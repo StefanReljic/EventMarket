@@ -5,6 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.yellow.eventmarket.configuration.state.DatabaseLoader;
+import com.yellow.eventmarket.configuration.state.FileLoader;
+import com.yellow.eventmarket.configuration.state.InitialStateLoader;
+
 @Configuration
 public class ApplicationConfig {
 

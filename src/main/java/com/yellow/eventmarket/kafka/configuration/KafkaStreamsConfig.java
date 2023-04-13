@@ -19,9 +19,10 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
+import com.yellow.eventmarket.dto.EventDTO;
+import com.yellow.eventmarket.dto.MarketDTO;
 import com.yellow.eventmarket.kafka.consumer.deserializer.EventDTODeserializer;
 import com.yellow.eventmarket.kafka.consumer.deserializer.MarketDTODeserializer;
-import com.yellow.eventmarket.model.Event;
 import com.yellow.eventmarket.model.Market;
 
 @Configuration
@@ -31,12 +32,6 @@ public class KafkaStreamsConfig {
 
 	@Value("${spring.kafka.bootstrap-servers}")
 	private String bootstrapServers;
-
-	@Value("${spring.kafka.consumer.group-id}")
-	private String consumerGroupId;
-
-	@Value("${kafka.topic.market}")
-	private String marketTopic;
 
 	@Bean(name = KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME)
 	public KafkaStreamsConfiguration kafkaStreamsConfiguration() {
@@ -49,18 +44,23 @@ public class KafkaStreamsConfig {
 	}
 
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, Market> marketKafkaListenerContainerFactory() {
+	public ConcurrentKafkaListenerContainerFactory<String, MarketDTO> marketKafkaListenerContainerFactory() {
 		return new CustomKafkaListenerContainerFactory<>(bootstrapServers, "marketFactory",
 				MarketDTODeserializer.class);
 	}
 
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, Event> eventKafkaListenerContainerFactory() {
+	public ConcurrentKafkaListenerContainerFactory<String, EventDTO> eventKafkaListenerContainerFactory() {
 		return new CustomKafkaListenerContainerFactory<>(bootstrapServers, "eventFactory", EventDTODeserializer.class);
 	}
 
 	@Bean
-	public KafkaTemplate<String, Market> marketKafkaTemplate() {
+	public KafkaTemplate<String, MarketDTO> marketKafkaTemplate() {
+		return new KafkaTemplate<>(new DefaultKafkaProducerFactory<>(producerConfigs()));
+	}
+
+	@Bean
+	public KafkaTemplate<String, EventDTO> eventKafkaTemplate() {
 		return new KafkaTemplate<>(new DefaultKafkaProducerFactory<>(producerConfigs()));
 	}
 

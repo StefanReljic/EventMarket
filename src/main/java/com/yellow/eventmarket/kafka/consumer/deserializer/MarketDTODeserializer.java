@@ -2,8 +2,8 @@ package com.yellow.eventmarket.kafka.consumer.deserializer;
 
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
-import com.yellow.eventmarket.model.Market;
+import com.yellow.eventmarket.dto.MarketDTO;
 
-public class MarketDTODeserializer extends JsonDeserializer<Market> {
+public class MarketDTODeserializer extends JsonDeserializer<MarketDTO> {
 
 }

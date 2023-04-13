@@ -1,4 +1,4 @@
-package com.yellow.eventmarket.configuration;
+package com.yellow.eventmarket.configuration.state;
 
 import java.util.List;
 import java.util.stream.Collectors;

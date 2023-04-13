@@ -8,25 +8,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yellow.eventmarket.dto.MarketDTO;
-import com.yellow.eventmarket.kafka.producer.MarketStreamProducer;
+import com.yellow.eventmarket.dto.EventDTO;
+import com.yellow.eventmarket.kafka.producer.EventStreamProducer;
 
 @RestController
-@RequestMapping("/markets")
-public class MarketController {
+@RequestMapping("/events")
+public class EventController {
 
 	@Autowired
-	private MarketStreamProducer marketStreamProducer;
+	private EventStreamProducer eventStreamProducer;
 
 	@PostMapping
-	public ResponseEntity<?> createMarket(@RequestBody MarketDTO marketDTO) {
-		marketStreamProducer.sendMarketToStream(marketDTO);
+	public ResponseEntity<?> createEvent(@RequestBody EventDTO eventDTO) {
+		eventStreamProducer.sendEventToStream(eventDTO);
 		return ResponseEntity.ok().build();
 	}
 
 	@PutMapping
-	public ResponseEntity<?> updateMarket(@RequestBody MarketDTO marketDTO) {
-		marketStreamProducer.sendMarketToStream(marketDTO);
+	public ResponseEntity<?> updateEvent(@RequestBody EventDTO eventDTO) {
+		eventStreamProducer.sendEventToStream(eventDTO);
 		return ResponseEntity.ok().build();
 	}
 

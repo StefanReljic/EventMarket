@@ -2,6 +2,8 @@ package com.yellow.eventmarket.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.yellow.eventmarket.enums.EventMarketStatus;
 
 import jakarta.persistence.Column;
@@ -13,13 +15,18 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "event_market")
-@Getter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EventMarket {
 
 	@Id
@@ -30,10 +37,12 @@ public class EventMarket {
 	@Enumerated(EnumType.STRING)
 	private EventMarketStatus status;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "market_id")
 	private Market market;
 
+	@JsonIgnore
 	@OneToMany
 	@JoinColumn(name = "event_market_id")
 	private List<EventMarketOutcome> outcomes;
